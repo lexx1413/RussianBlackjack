@@ -24,10 +24,12 @@ public class CardDeck {
                 '}';
     }
 
+    // TODO: change to Fisher-Yates algorithms
     public void shuffle() {
-        for (int i = 0; i < 100; i++) {
-            int a = (int) (Math.random() * 36);
-            int b = (int) (Math.random() * 36);
+        int deckSize = lastCardPosition + 1;
+        for (int i = 0; i < 3 * deckSize; i++) {
+            int a = (int) (Math.random() * deckSize);
+            int b = (int) (Math.random() * deckSize);
             Card tmp = deck[a];
             deck[a] = deck[b];
             deck[b] = tmp;
@@ -36,6 +38,10 @@ public class CardDeck {
 
     public boolean isEmpty() {
         return lastCardPosition < 0;
+    }
+
+    public boolean getSize() {
+        return lastCardPosition + 1;
     }
 
     public Card drawCard() {
