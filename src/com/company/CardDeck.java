@@ -40,7 +40,7 @@ public class CardDeck {
         return lastCardPosition < 0;
     }
 
-    public boolean getSize() {
+    public int getSize() {
         return lastCardPosition + 1;
     }
 

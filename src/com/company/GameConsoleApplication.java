@@ -15,7 +15,7 @@ public class GameConsoleApplication {
 
         for (int i = 0; i < 40; i++) {
             if (!deck.isEmpty()) {
-                Card card = deck.drawCard();
+            Card card = deck.drawCard();
                 System.out.println(card);
             } else {
                 System.out.println("The deck is empty!");
