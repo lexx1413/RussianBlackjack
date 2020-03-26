@@ -35,32 +35,32 @@ public class Player {
         roundScore = 0;
         boolean acesFound = false;
         for (int i = 0; i <= lastCardPosition; i++) {
-            switch (roundCards[i]) {
-                case CardValue.N6:
+            switch (roundCards[i].getValue()) {
+                case N6:
                     roundScore += 6;
                     break;
-                case CardValue.N7:
+                case N7:
                     roundScore += 7;
                     break;
-                case CardValue.N8:
+                case N8:
                     roundScore += 8;
                     break;
-                case CardValue.N9:
+                case N9:
                     roundScore += 9;
                     break;
-                case CardValue.N10:
+                case N10:
                     roundScore += 10;
                     break;
-                case CardValue.NJ:
+                case NJ:
                     roundScore += 2;
                     break;
-                case CardValue.NQ:
+                case NQ:
                     roundScore += 3;
                     break;
-                case CardValue.NK:
+                case NK:
                     roundScore += 4;
                     break;
-                case CardValue.NA:
+                case NA:
                     roundScore += 1;
                     acesFound = true;
                     break;
