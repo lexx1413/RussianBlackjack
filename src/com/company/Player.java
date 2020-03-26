@@ -1,5 +1,7 @@
 package com.company;
 
+import java.util.Arrays;
+
 public class Player {
     String name = null;
     int wins = 0;
@@ -29,6 +31,19 @@ public class Player {
     public void takeCard(Card card) {
         roundCards[lastCardPosition++] = card;
         updateScore();
+    }
+
+    @Override
+    public String toString() {
+        return name;
+    }
+
+    public int getRoundScore() {
+        return roundScore;
+    }
+
+    public Card[] getRoundCards() {
+        return Arrays.copyOfRange(roundCards, 0, lastCardPosition + 1);
     }
 
     private void updateScore() {

@@ -1,9 +1,10 @@
 package com.company;
 
 import java.util.Arrays;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class CardDeck {
-    Card[] deck = null;
+    Card[] deck;
     int lastCardPosition = 0;
 
     CardDeck() {
@@ -24,15 +25,14 @@ public class CardDeck {
                 '}';
     }
 
-    // TODO: change to Fisher-Yates algorithms
+    // Fisher-Yates algorithm
     public void shuffle() {
         int deckSize = lastCardPosition + 1;
-        for (int i = 0; i < 3 * deckSize; i++) {
-            int a = (int) (Math.random() * deckSize);
-            int b = (int) (Math.random() * deckSize);
-            Card tmp = deck[a];
-            deck[a] = deck[b];
-            deck[b] = tmp;
+        for (int i = deckSize - 1; i > 0; i--) {
+            int j = ThreadLocalRandom.current().nextInt(i + 1);
+            Card tmp = deck[i];
+            deck[i] = deck[j];
+            deck[j] = tmp;
         }
     }
 
