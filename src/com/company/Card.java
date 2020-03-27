@@ -6,7 +6,7 @@ public class Card {
 
     @Override
     public String toString() {
-        return "(" +  suit + ":" + value + ')';
+        return String.valueOf(value) + suit;
     }
 
     public Card(CardSuit s, CardValue v) {

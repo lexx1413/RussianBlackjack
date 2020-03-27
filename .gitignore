@@ -4,6 +4,8 @@
 # IDE Settings
 .idea/
 .DS_Store/
+out/
+
 
 # Log file
 *.log
