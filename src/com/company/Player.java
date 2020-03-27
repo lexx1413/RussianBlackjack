@@ -9,11 +9,15 @@ public class Player {
     int ties = 0;
     int roundScore = 0;
     Card[] roundCards = null;
-    int lastCardPosition = 0;
+    int cardsCount = 0;
 
     Player(String name) {
         this.name = name;
         roundCards = new Card[36];
+    }
+
+    public String getName() {
+        return name;
     }
 
     public void loseGame() {
@@ -28,8 +32,17 @@ public class Player {
         ties++;
     }
 
+    public int getWins() {
+        return wins;
+    }
+
     public void takeCard(Card card) {
-        roundCards[lastCardPosition++] = card;
+        roundCards[cardsCount++] = card;
+        updateScore();
+    }
+
+    public void resetCards() {
+        cardsCount = 0;
         updateScore();
     }
 
@@ -43,13 +56,13 @@ public class Player {
     }
 
     public Card[] getRoundCards() {
-        return Arrays.copyOfRange(roundCards, 0, lastCardPosition + 1);
+        return Arrays.copyOfRange(roundCards, 0, cardsCount);
     }
 
     private void updateScore() {
         roundScore = 0;
         boolean acesFound = false;
-        for (int i = 0; i <= lastCardPosition; i++) {
+        for (int i = 0; i < cardsCount; i++) {
             switch (roundCards[i].getValue()) {
                 case N6:
                     roundScore += 6;
