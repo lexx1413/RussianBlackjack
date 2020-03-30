@@ -15,12 +15,11 @@ public class Game {
 
     public void initPlayers() {
         Scanner in = new Scanner(System.in);
-        int playersCount = 0;
         while (!in.hasNextInt()) {
             in.next();
             System.out.println("Enter number of players: ");
         }
-        playersCount = in.nextInt();
+        int playersCount = in.nextInt();
         in.nextLine(); // Чтобы при считывании Имени игрока не вывести пустую строку, оставшуюся от кол-ва игроков
         players = new Player[playersCount];
         for (int i = 0; i < players.length; i++) {
@@ -31,26 +30,18 @@ public class Game {
     public void playRound() {
         cardDeck.reset();
         System.out.println(System.lineSeparator() + "New round " + roundNumber);
-        Scanner in = new Scanner(System.in);
         for (Player player : players) {
             player.resetCards();
             System.out.println("  " + player.getName());
             player.takeCard(cardDeck.drawCard());
             player.takeCard(cardDeck.drawCard());
             System.out.println("  " + Arrays.toString(player.getRoundCards()) + " sum: " + player.getRoundScore());
-            while (player.getRoundScore() < 21) {
-                System.out.println("  More?");
-                String answer = in.nextLine();
-                if (answer.equals("n")) {
-                    break;
-                } else if (answer.equals("y")) {
-                    player.takeCard(cardDeck.drawCard());
-                    System.out.println("  " + Arrays.toString(player.getRoundCards()) + " sum: " + player.getRoundScore());
-                } else {
-                    System.out.println("  Wrong command");
-                }
+            while (player.getRoundScore() < 21 && player.isWillingToTakeCard()) {
+                player.takeCard(cardDeck.drawCard());
+                System.out.println("  " + Arrays.toString(player.getRoundCards()) + " sum: " + player.getRoundScore());
             }
         }
+        System.out.println();
         roundNumber++;
     }
 
