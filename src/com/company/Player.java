@@ -1,6 +1,7 @@
 package com.company;
 
 import java.util.Arrays;
+import java.util.Scanner;
 
 public class Player {
     String name = null;
@@ -44,6 +45,17 @@ public class Player {
     public void resetCards() {
         cardsCount = 0;
         updateScore();
+    }
+
+    public boolean isWillingToTakeCard() {
+        Scanner in = new Scanner(System.in);
+        System.out.println("  More?");
+        String answer = in.next();
+        while (!answer.equals("y") && !answer.equals("n")) {
+            System.out.println("  Wrong answer. Enter y or n: ");
+            answer = in.next();
+        }
+        return answer.equals("y");
     }
 
     @Override
