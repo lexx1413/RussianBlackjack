@@ -6,6 +6,7 @@ import java.util.Scanner;
 public class Game {
     Player[] players;
     CardDeck cardDeck;
+    int roundNumber = 1;
 
     Game() {
         cardDeck = new CardDeck();
@@ -20,15 +21,16 @@ public class Game {
             System.out.println("Enter number of players: ");
         }
         playersCount = in.nextInt();
+        in.nextLine(); // Чтобы при считывании Имени игрока не вывести пустую строку, оставшуюся от кол-ва игроков
         players = new Player[playersCount];
         for (int i = 0; i < players.length; i++) {
-            players[i] = new Player(in.next());
+            players[i] = new Player(in.nextLine());
         }
     }
 
     public void playRound() {
         cardDeck.reset();
-        System.out.println(System.lineSeparator() + "New round!");
+        System.out.println(System.lineSeparator() + "New round " + roundNumber);
         Scanner in = new Scanner(System.in);
         for (Player player : players) {
             player.resetCards();
@@ -49,6 +51,7 @@ public class Game {
                 }
             }
         }
+        roundNumber++;
     }
 
     public void play() {

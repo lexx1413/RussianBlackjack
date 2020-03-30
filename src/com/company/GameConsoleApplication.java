@@ -11,3 +11,4 @@ public class GameConsoleApplication {
         game.play();
     }
 }
+
