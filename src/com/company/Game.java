@@ -3,10 +3,16 @@ package com.company;
 import java.util.Arrays;
 import java.util.Scanner;
 
+enum EndOfRoundPlayerStatus {
+    WON,
+    LOST,
+    TIED
+}
+
 public class Game {
     Player[] players;
     CardDeck cardDeck;
-    int roundNumber = 1;
+    EndOfRoundPlayerStatus[] lastRoundPlayersStatuses;
 
     Game() {
         cardDeck = new CardDeck();
@@ -20,16 +26,19 @@ public class Game {
             System.out.println("Enter number of players: ");
         }
         int playersCount = in.nextInt();
-        in.nextLine(); // Чтобы при считывании Имени игрока не вывести пустую строку, оставшуюся от кол-ва игроков
         players = new Player[playersCount];
-        for (int i = 0; i < players.length; i++) {
-            players[i] = new Player(in.nextLine());
+        in.nextLine();
+        int i = 0;
+        while (i < players.length) {
+            String playerName = in.nextLine().strip();
+            if (!playerName.equals("")) {
+                players[i++] = new Player(playerName);
+            }
         }
     }
 
     public void playRound() {
         cardDeck.reset();
-        System.out.println(System.lineSeparator() + "New round " + roundNumber);
         for (Player player : players) {
             player.resetCards();
             System.out.println("  " + player.getName());
@@ -41,14 +50,67 @@ public class Game {
                 System.out.println("  " + Arrays.toString(player.getRoundCards()) + " sum: " + player.getRoundScore());
             }
         }
-        System.out.println();
-        roundNumber++;
+        updateRoundResults();
+    }
+
+    private void printRoundResultsTable() {
+        // Взять players[i] и взять lastRoundPlayersStatuses[i]
+        for (int i = 0; i < players.length; i++) {
+            System.out.println(players[i].getName() + " - " + lastRoundPlayersStatuses[i]);
+        }
+
     }
 
     public void play() {
+        int roundNumber = 1;
         while (winsCount() < 10) {
+            System.out.println(System.lineSeparator() + "New round " + roundNumber + System.lineSeparator());
             playRound();
+            System.out.println();
+            printRoundResultsTable();
+            roundNumber++;
         }
+    }
+
+    private void updateRoundResults() {
+        lastRoundPlayersStatuses = getRoundResults();
+        for (int i = 0; i < players.length; i++) {
+            switch (lastRoundPlayersStatuses[i]) {
+                case WON:
+                    players[i].winGame();
+                    break;
+                case TIED:
+                    players[i].tieGame();
+                    break;
+                case LOST:
+                    players[i].loseGame();
+                    break;
+            }
+        }
+    }
+
+    private EndOfRoundPlayerStatus[] getRoundResults() {
+        EndOfRoundPlayerStatus[] statuses = new EndOfRoundPlayerStatus[players.length];
+        int max = 0;
+        int maxCount = 1;
+        for (Player player : players) {
+            if (player.getRoundScore() > max) {
+                max = player.getRoundScore();
+                maxCount = 1;
+            } else if (player.getRoundScore() == max) {
+                maxCount++;
+            }
+        }
+        for (int i = 0; i < players.length; i++) {
+            if (players[i].getRoundScore() == max && maxCount > 1) {
+                statuses[i] = EndOfRoundPlayerStatus.TIED;
+            } else if (players[i].getRoundScore() == max && maxCount == 1) {
+                statuses[i] = EndOfRoundPlayerStatus.WON;
+            } else {
+                statuses[i] = EndOfRoundPlayerStatus.LOST;
+            }
+        }
+        return statuses;
     }
 
     private int winsCount() {
