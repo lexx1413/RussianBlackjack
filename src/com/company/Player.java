@@ -1,113 +1,26 @@
 package com.company;
 
-import java.util.Arrays;
-import java.util.Scanner;
+public interface Player {
+    String getName();
 
-public class Player {
-    String name = null;
-    int wins = 0;
-    int loses = 0;
-    int ties = 0;
-    int roundScore = 0;
-    Card[] roundCards = null;
-    int cardsCount = 0;
+    void loseGame();
 
-    Player(String name) {
-        this.name = name;
-        roundCards = new Card[36];
-    }
+    void winGame();
 
-    public String getName() {
-        return name;
-    }
+    void tieGame();
 
-    public void loseGame() {
-        loses++;
-    }
+    int getWins();
 
-    public void winGame() {
-        wins++;
-    }
+    void takeCard(Card card);
 
-    public void tieGame() {
-        ties++;
-    }
+    void resetCards();
 
-    public int getWins() {
-        return wins;
-    }
-
-    public void takeCard(Card card) {
-        roundCards[cardsCount++] = card;
-        updateScore();
-    }
-
-    public void resetCards() {
-        cardsCount = 0;
-        updateScore();
-    }
-
-    public boolean isWillingToTakeCard() {
-        Scanner in = new Scanner(System.in);
-        System.out.println("  More?");
-        String answer = in.next();
-        while (!answer.equals("y") && !answer.equals("n")) {
-            System.out.println("  Wrong answer. Enter y or n: ");
-            answer = in.next();
-        }
-        return answer.equals("y");
-    }
+    boolean isWillingToTakeCard();
 
     @Override
-    public String toString() {
-        return name;
-    }
+    String toString();
 
-    public int getRoundScore() {
-        return roundScore;
-    }
+    int getRoundScore();
 
-    public Card[] getRoundCards() {
-        return Arrays.copyOfRange(roundCards, 0, cardsCount);
-    }
-
-    private void updateScore() {
-        roundScore = 0;
-        boolean acesFound = false;
-        for (int i = 0; i < cardsCount; i++) {
-            switch (roundCards[i].getValue()) {
-                case N6:
-                    roundScore += 6;
-                    break;
-                case N7:
-                    roundScore += 7;
-                    break;
-                case N8:
-                    roundScore += 8;
-                    break;
-                case N9:
-                    roundScore += 9;
-                    break;
-                case N10:
-                    roundScore += 10;
-                    break;
-                case NJ:
-                    roundScore += 2;
-                    break;
-                case NQ:
-                    roundScore += 3;
-                    break;
-                case NK:
-                    roundScore += 4;
-                    break;
-                case NA:
-                    roundScore += 1;
-                    acesFound = true;
-                    break;
-            }
-        }
-        if (roundScore <= 11 && acesFound) {
-            roundScore += 10;
-        }
-    }
+    Card[] getRoundCards();
 }

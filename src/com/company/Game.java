@@ -28,12 +28,13 @@ public class Game {
         int playersCount = in.nextInt();
         players = new Player[playersCount];
         in.nextLine();
-        int i = 0;
+        String playerName = in.nextLine().strip();
+        if (!playerName.equals("")) {
+            players[0] = new PlayerHuman(playerName);
+        }
+        int i = 1;
         while (i < players.length) {
-            String playerName = in.nextLine().strip();
-            if (!playerName.equals("")) {
-                players[i++] = new Player(playerName);
-            }
+            players[i++] = new PlayerAI("bot" + (i - 1));
         }
     }
 
@@ -94,7 +95,7 @@ public class Game {
         int max = 0;
         int maxCount = 1;
         for (Player player : players) {
-            if (player.getRoundScore() > max) {
+            if (player.getRoundScore() > max && player.getRoundScore() <= 21) {
                 max = player.getRoundScore();
                 maxCount = 1;
             } else if (player.getRoundScore() == max) {
