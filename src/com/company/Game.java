@@ -1,5 +1,7 @@
 package com.company;
 
+import com.company.players.*;
+
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -26,6 +28,14 @@ public class Game {
             System.out.println("Enter number of players: ");
         }
         int playersCount = in.nextInt();
+//        players = new Player[3 * playersCount];
+//        int i = 0;
+//        while (i < players.length) {
+
+//            players[i++] = new PlayerProphetAI("pBot" + (i));
+//            players[i++] = new PlayerSimpleAI("sBot" + (i));
+//            players[i++] = new PlayerOpenCardsAI("ocBot" + (i));
+//        }
         players = new Player[playersCount];
         in.nextLine();
         String playerName = in.nextLine().strip();
@@ -34,7 +44,7 @@ public class Game {
         }
         int i = 1;
         while (i < players.length) {
-            players[i++] = new PlayerAI("bot" + (i - 1));
+            players[i++] = new PlayerOpenCardsAI("bot" + (i - 1));
         }
     }
 
@@ -43,10 +53,18 @@ public class Game {
         for (Player player : players) {
             player.resetCards();
             System.out.println("  " + player.getName());
+            if (cardDeck.getSize() < 2) {
+                System.out.println("  " + Arrays.toString(player.getRoundCards()) + " sum: " + player.getRoundScore());
+                continue;
+            }
             player.takeCard(cardDeck.drawCard());
             player.takeCard(cardDeck.drawCard());
             System.out.println("  " + Arrays.toString(player.getRoundCards()) + " sum: " + player.getRoundScore());
-            while (player.getRoundScore() < 21 && player.isWillingToTakeCard()) {
+            while (player.getRoundScore() < 21 && !cardDeck.isEmpty()) {
+                player.takeGameInformation(cardDeck);
+                if (!player.isWillingToTakeCard()) {
+                    break;
+                }
                 player.takeCard(cardDeck.drawCard());
                 System.out.println("  " + Arrays.toString(player.getRoundCards()) + " sum: " + player.getRoundScore());
             }
@@ -64,7 +82,7 @@ public class Game {
 
     public void play() {
         int roundNumber = 1;
-        while (winsCount() < 10) {
+        while (winsCount() < 1000) {
             System.out.println(System.lineSeparator() + "New round " + roundNumber + System.lineSeparator());
             playRound();
             System.out.println();
@@ -122,6 +140,14 @@ public class Game {
             }
         }
         return maxWins;
+    }
+
+    public void printLeaderboard() {
+        System.out.println("Leaderboard");
+        System.out.println("Name\tWins\tTies\tLosses");
+        for (Player player : players) {
+            System.out.printf("%s\t%4d\t%4d\t%6d%n", player.getName(), player.getWins(), player.getTies(), player.getLosses());
+        }
     }
 
     public Player[] getPlayers() {

@@ -47,4 +47,10 @@ public class CardDeck {
     public Card drawCard() {
         return deck[--cardsCount];
     }
+
+    public Card[] getAvailableCards() {
+        return Arrays.copyOf(deck, cardsCount);
+    }
+
+
 }
