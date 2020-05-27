@@ -1,6 +1,6 @@
-package com.company.players;
+package blackjack.players;
 
-import com.company.Card;
+import blackjack.Card;
 
 public class PlayerProphetAI extends Player {
     public PlayerProphetAI(String name) {
