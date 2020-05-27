@@ -1,4 +1,4 @@
-package blackjack;
+package blackjack.cards;
 
 public class Card {
     CardSuit suit;

@@ -3,6 +3,8 @@ package blackjack;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import blackjack.cards.CardSuit;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class CardSuitTest {

@@ -1,14 +1,16 @@
-package blackjack;
+package blackjack.cards;
 
 import java.util.Arrays;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class CardDeck {
+    private final static int CARDS_IN_DECK = 36;
+
     Card[] deck;
     int cardsCount = 0;
 
-    CardDeck() {
-        deck = new Card[36];
+    public CardDeck() {
+        deck = new Card[CARDS_IN_DECK];
         for (CardSuit suit : CardSuit.values()) {
             for (CardValue value : CardValue.values()) {
                 deck[cardsCount++] = new Card(suit, value);

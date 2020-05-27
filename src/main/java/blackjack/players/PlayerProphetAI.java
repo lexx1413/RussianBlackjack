@@ -1,6 +1,6 @@
 package blackjack.players;
 
-import blackjack.Card;
+import blackjack.cards.Card;
 
 public class PlayerProphetAI extends Player {
     public PlayerProphetAI(String name) {

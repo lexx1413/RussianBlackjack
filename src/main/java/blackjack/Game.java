@@ -1,5 +1,6 @@
 package blackjack;
 
+import blackjack.cards.CardDeck;
 import blackjack.players.*;
 
 import java.util.Arrays;

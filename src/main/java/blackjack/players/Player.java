@@ -1,8 +1,8 @@
 package blackjack.players;
 
-import blackjack.Card;
-import blackjack.CardDeck;
-import blackjack.CardValue;
+import blackjack.cards.Card;
+import blackjack.cards.CardDeck;
+import blackjack.cards.CardValue;
 
 import java.util.Arrays;
 
