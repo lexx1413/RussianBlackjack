@@ -1,4 +1,4 @@
-package com.company;
+package blackjack;
 
 import java.util.Arrays;
 import java.util.concurrent.ThreadLocalRandom;

@@ -1,4 +1,4 @@
-package com.company.players;
+package blackjack.players;
 
 import java.util.Scanner;
 

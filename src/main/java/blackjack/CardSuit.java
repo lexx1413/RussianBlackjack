@@ -1,4 +1,4 @@
-package com.company;
+package blackjack;
 
 public enum CardSuit {
     DIAMONDS("♦"), // Бубны
@@ -20,4 +20,5 @@ public enum CardSuit {
     public String toString() {
         return symbol;
     }
+
 }
