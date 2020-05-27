@@ -1,4 +1,4 @@
-package com.company.players;
+package blackjack.players;
 
 public class PlayerSimpleAI extends Player {
     public PlayerSimpleAI(String name) {

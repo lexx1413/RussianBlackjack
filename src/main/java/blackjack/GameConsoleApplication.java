@@ -1,6 +1,4 @@
-package com.company;
-
-import java.util.Arrays;
+package blackjack;
 
 public class GameConsoleApplication {
     public static void main(String[] args) {

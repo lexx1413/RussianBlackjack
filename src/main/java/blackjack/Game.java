@@ -1,6 +1,6 @@
-package com.company;
+package blackjack;
 
-import com.company.players.*;
+import blackjack.players.*;
 
 import java.util.Arrays;
 import java.util.Scanner;

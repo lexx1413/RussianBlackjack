@@ -1,4 +1,4 @@
-package com.company;
+package blackjack;
 
 public enum CardValue {
     N6("6"),
